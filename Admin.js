@@ -1,7 +1,16 @@
+var ipaddress = process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1";
+var port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
+
+app.listen(port, ipaddress, function() {
+
+
 var http = require("http");
 var url = require('url');
 var fs = require('fs');
 var io = require('/usr/local/lib/node_modules/socket.io');
+
+
+
 
 var server = http.createServer(function (request, response) {
     var path = url.parse(request.url).pathname;
@@ -87,4 +96,4 @@ listener.sockets.on('connection', function (socket) {
 
 
 
-
+});
