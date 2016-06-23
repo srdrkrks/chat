@@ -1,0 +1,84 @@
+
+<!--<html>
+    <head>
+        <script src="/socket.io/socket.io.js"></script>
+    </head>
+    <body>
+        <script>
+            var socket = io.connect();
+        </script>
+        <div>This is our socket.html file</div>
+        <script>
+            var socket = io.connect();
+
+            socket.on('message', function (data) {
+                    console.log(data.message);
+            });
+        </script>
+    </body>
+</html>-->
+
+<!--
+
+
+<html>
+  <head>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>  </head>
+  <body>
+    <script>
+      var socket = io.connect();
+
+      socket.on('date', function(data){
+        $('#date').text(data.date);
+      });
+    </script>
+    <div id="date"></div>
+  </body>
+</html>
+
+-->
+
+
+
+<html>
+    <head>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
+    </head>
+    <body>
+        <h1>Admin Panel</h1>
+        <script>
+            var socket = io.connect();
+            socket.on('personAnswer', function (data) {
+                $('#kcvp').text(data.kcevap);
+            });
+
+            $(document).ready(function () {
+
+                $("#send").click(function () {
+                    console.log($('#text').val());
+                    socket.emit('soru', {'letter': $('#text').val()});
+                });
+                canAns = false;
+                $("#izin").click(function () {
+                    if (canAns) {
+                        socket.emit('yetki', {'state': true});
+                        canAns = false;
+                    } else {
+                        socket.emit('yetki', {'state': false});
+                        canAns = true;
+                    }
+
+                });
+
+
+            });
+        </script>
+        <div id="kcvp"></div>
+        <textarea id="text"></textarea>
+        <a id="send" style="position: relative; margin-top: 100px;">Gönder</a>
+        <br>
+        <a id="izin" style="position: relative; margin-top: 100px;">Konuşsun</a>
+    </body>
+</html>

@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>  </head>
+
+    <body>
+        <h1>Kullanici </h1>
+        <script>
+            var socket = io.connect();
+            socket.on('date', function (data) {
+                $('#date').text(data.date);
+            });
+
+            socket.on('canAnswer', function (data) {
+                if (data.kcevap) {
+                    $("#cvp").fadeIn();
+                } else {
+                    $("#cvp").fadeOut();
+                }
+            });
+
+            $(document).ready(function () {
+                $("#cvp").hide();
+                $("#sendAns").click(function () {
+                    console.log($('#cvp').val());
+                    socket.emit('cevap', {'cvp': $('#cvp').val()});
+                });
+
+            });
+
+        </script>
+
+        <div id="date"></div>
+        <textarea id="cvp"></textarea>
+        <a id="sendAns" style="position: relative; margin-top: 100px;">Gönder</a>
+
+    </body>
+</html>
